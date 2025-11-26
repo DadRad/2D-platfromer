@@ -1538,6 +1538,10 @@ GameObject:
   - component: {fileID: 887823571}
   - component: {fileID: 887823572}
   - component: {fileID: 887823573}
+  - component: {fileID: 887823574}
+  - component: {fileID: 887823575}
+  - component: {fileID: 887823576}
+  - component: {fileID: 887823577}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -1716,8 +1720,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ea3d28cf9c20d4abdb427c4716bb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  speed: 6
-  jumpForce: 10.5
+  _speed: 5
+  _inputReader: {fileID: 887823575}
+  _jumper: {fileID: 887823574}
+  _flipper: {fileID: 887823577}
 --- !u!114 &887823571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1730,6 +1736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618d20d5ed3065546864351a998eafae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinCollector
+  _coinLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &887823572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1789,6 +1798,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
   _animator: {fileID: 887823569}
+--- !u!114 &887823574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887823563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854e42c89c5196e4787d44a1eeafa136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jumper
+  jumpForce: 12
+--- !u!114 &887823575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887823563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed73f39b435a9e4ea219932e140a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputReader
+--- !u!114 &887823576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887823563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b26802cef244745b98ad066861a6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundCollisionHandler
+  jumper: {fileID: 887823574}
+--- !u!114 &887823577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887823563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flipper
 --- !u!1 &895327807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,7 +1967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc0fd680a652ad448741e8095cd646b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefeatNotification
-  _defeatNotification: {fileID: 99646620}
+  _defeatText: {fileID: 99646622}
 --- !u!4 &946157337
 Transform:
   m_ObjectHideFlags: 0
@@ -2104,6 +2163,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &989584133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989584135}
+  - component: {fileID: 989584134}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &989584134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0ce444f24d3224abe18ed60b60c8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventManager
+--- !u!4 &989584135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989584133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.46845, y: -4.93586, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054751636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,6 +2431,8 @@ GameObject:
   - component: {fileID: 1247543877}
   - component: {fileID: 1247543878}
   - component: {fileID: 1247543879}
+  - component: {fileID: 1247543880}
+  - component: {fileID: 1247543881}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -2451,6 +2556,7 @@ MonoBehaviour:
   - {fileID: 1840386699}
   - {fileID: 711563619}
   _speed: 7
+  _waypointThreshold: 0.1
 --- !u!114 &1247543878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2509,6 +2615,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5954995, y: 1.066536}
   m_EdgeRadius: 0
+--- !u!114 &1247543880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _enemyMovement: {fileID: 1247543877}
+  _flipper: {fileID: 1247543881}
+--- !u!114 &1247543881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flipper
 --- !u!1 &1267017881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3042,6 +3174,8 @@ GameObject:
   - component: {fileID: 1612375762}
   - component: {fileID: 1612375761}
   - component: {fileID: 1612375760}
+  - component: {fileID: 1612375765}
+  - component: {fileID: 1612375766}
   m_Layer: 0
   m_Name: Enemy 3
   m_TagString: Untagged
@@ -3138,6 +3272,7 @@ MonoBehaviour:
   - {fileID: 56417428}
   - {fileID: 568032081}
   _speed: 7
+  _waypointThreshold: 0.2
 --- !u!50 &1612375763
 Rigidbody2D:
   serializedVersion: 5
@@ -3223,6 +3358,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1612375765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _enemyMovement: {fileID: 1612375762}
+  _flipper: {fileID: 1612375766}
+--- !u!114 &1612375766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flipper
 --- !u!1 &1646836197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,6 +3453,8 @@ GameObject:
   - component: {fileID: 1732939290}
   - component: {fileID: 1732939289}
   - component: {fileID: 1732939288}
+  - component: {fileID: 1732939293}
+  - component: {fileID: 1732939294}
   m_Layer: 0
   m_Name: Enemy 2
   m_TagString: Untagged
@@ -3388,6 +3551,7 @@ MonoBehaviour:
   - {fileID: 1839216255}
   - {fileID: 1401548618}
   _speed: 7
+  _waypointThreshold: 0.1
 --- !u!50 &1732939291
 Rigidbody2D:
   serializedVersion: 5
@@ -3473,6 +3637,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1732939293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _enemyMovement: {fileID: 1732939290}
+  _flipper: {fileID: 1732939294}
+--- !u!114 &1732939294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Flipper
 --- !u!1 &1745285029
 GameObject:
   m_ObjectHideFlags: 0
@@ -6455,7 +6645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972376a04407bf84b991c27bd2b44428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoryNotification
-  _victoryText: {fileID: 631380050}
+  _victoryText: {fileID: 631380051}
   _coinCollector: {fileID: 887823571}
 --- !u!4 &1958429676
 Transform:
@@ -6581,3 +6771,4 @@ SceneRoots:
   - {fileID: 42573714}
   - {fileID: 1054751639}
   - {fileID: 269586680}
+  - {fileID: 989584135}
