@@ -14,6 +14,21 @@ public class CameraFollow : MonoBehaviour
     private Vector3 _targetPosition;
     private bool _isInitialized = false;
 
+    public void SetTarget(Transform newTarget)
+    {
+        _target = newTarget;
+
+        if (newTarget != null)
+        {
+            Initialize();
+        }
+    }
+
+    public void SetBoundsEnabled(bool enabled)
+    {
+        _useBounds = enabled;
+    }
+    
     private void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -60,20 +75,5 @@ public class CameraFollow : MonoBehaviour
             _targetPosition,
             _smoothSpeed * Time.deltaTime
         );
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        _target = newTarget;
-
-        if (newTarget != null)
-        {
-            Initialize();
-        }
-    }
-
-    public void SetBoundsEnabled(bool enabled)
-    {
-        _useBounds = enabled;
     }
 }

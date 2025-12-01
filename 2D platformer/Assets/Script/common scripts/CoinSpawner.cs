@@ -5,26 +5,53 @@ using UnityEngine.Pool;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private CoinCollector _coinCollector;
-    [SerializeField] private GameObject _coinPrefab;
+    [SerializeField] private Coin _coinPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _repeatRate;
     [SerializeField] private int _poolSize;
     [SerializeField] private int _maxPoolSize;
 
-    private ObjectPool<GameObject> _coinPool;
+    private ObjectPool<Coin> _coinPool;
     private int _arrayIndex;
 
     private void Awake()
     {
-        _coinPool = new ObjectPool<GameObject>(
-            createFunc: () => Instantiate(_coinPrefab),
-            actionOnGet: (coin) => ActionOnGet(coin),
-            actionOnRelease: (coin) => coin.SetActive(false),
-            actionOnDestroy: (coin) => Destroy(coin),
+        _coinPool = new ObjectPool<Coin>(
+            createFunc: CreateCoin,
+            actionOnGet: ActionOnGet,
+            actionOnRelease: ActionOnRelease,
+            actionOnDestroy: ActionOnDestroy,
             collectionCheck: true,
             defaultCapacity: _poolSize,
             maxSize: _maxPoolSize
         );
+    }
+
+    private Coin CreateCoin()
+    {
+        Coin coinInstance = Instantiate(_coinPrefab);
+        coinInstance.gameObject.SetActive(false);
+        return coinInstance;
+    }
+
+    private void ActionOnGet(Coin coin)
+    {
+        if (_arrayIndex < _spawnPoints.Length)
+        {
+            coin.transform.position = _spawnPoints[_arrayIndex].position;
+        }
+
+        coin.gameObject.SetActive(true);
+    }
+
+    private void ActionOnRelease(Coin coin)
+    {
+        coin.gameObject.SetActive(false);
+    }
+
+    private void ActionOnDestroy(Coin coin)
+    {
+        Destroy(coin.gameObject);
     }
 
     private void Start()
@@ -37,31 +64,32 @@ public class CoinSpawner : MonoBehaviour
         _coinCollector.OnCoinCollected += ReleaseHandler;
     }
 
-    private void ActionOnGet(GameObject coin)
+    private void OnDisable()
     {
-        coin.transform.position = _spawnPoints[_arrayIndex].position;
-        coin.gameObject.SetActive(true);
-    }
-
-    private void GetCoin()
-    {
-        GameObject coin = _coinPool.Get();
+        _coinCollector.OnCoinCollected -= ReleaseHandler;
     }
 
     private IEnumerator SpawnCoins()
     {
-        var wait = new WaitForSeconds(_repeatRate);
+        WaitForSeconds wait = new WaitForSeconds(_repeatRate);
 
         for (int i = 0; i < _spawnPoints.Length; i++)
         {
             _arrayIndex = i;
-            GetCoin();
+            _coinPool.Get();
             yield return wait;
         }
     }
-    
-    private void ReleaseHandler(GameObject coin)
+
+    private void ReleaseHandler(GameObject coinObject)
     {
-        _coinPool.Release(coin);
+        if (coinObject.TryGetComponent<Coin>(out Coin coin))
+        {
+            _coinPool.Release(coin);
+        }
+        else
+        {
+            Debug.LogWarning("Объект не содержит компонент Coin", coinObject);
+        }
     }
 }

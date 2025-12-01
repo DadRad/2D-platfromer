@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Jumper : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float _jumpForce = 20f;
     
     private Rigidbody2D _rigidbody;
     private bool _canJump = true;
@@ -16,7 +16,7 @@ public class Jumper : MonoBehaviour
     {
         if (_canJump)
         {
-            _rigidbody.linearVelocity = new Vector2(_rigidbody.linearVelocity.x, jumpForce);
+            _rigidbody.linearVelocity = new Vector2(_rigidbody.linearVelocity.x, _jumpForce);
             _canJump = false;
         }
     }
