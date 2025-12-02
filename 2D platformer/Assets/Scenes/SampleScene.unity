@@ -1673,6 +1673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jumper
   _jumpForce: 12
+  _groundHandler: {fileID: 887823576}
 --- !u!114 &887823575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1697,7 +1698,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b26802cef244745b98ad066861a6a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundCollisionHandler
-  _jumper: {fileID: 887823574}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &887823577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3536,7 +3539,7 @@ GameObject:
   - component: {fileID: 1823637915}
   - component: {fileID: 1823637917}
   - component: {fileID: 1823637918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Ground
   m_Icon: {fileID: 0}

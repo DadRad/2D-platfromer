@@ -3,14 +3,12 @@ using UnityEngine;
 public class Jumper : MonoBehaviour
 {
     [SerializeField] private float _jumpForce = 20f;
-    
+    [SerializeField] private GroundCollisionHandler _groundHandler;
+
     private Rigidbody2D _rigidbody;
     private bool _canJump = true;
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
+    public bool CanJump => _canJump;
 
     public void Jump()
     {
@@ -21,10 +19,38 @@ public class Jumper : MonoBehaviour
         }
     }
 
-    public void SetCanJump(bool canJump)
+    private void Awake()
     {
-        _canJump = canJump;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public bool CanJump => _canJump;
+    private void Start()
+    {
+        _rigidbody.freezeRotation = true;
+    }
+
+    private void OnEnable()
+    {
+        if (_groundHandler != null)
+        {
+            _groundHandler.OnGroundedChanged += OnGroundedChanged;
+        }
+        else
+        {
+            Debug.LogError("GroundCollisionHandler не назначен в Jumper!", this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_groundHandler != null)
+        {
+            _groundHandler.OnGroundedChanged -= OnGroundedChanged;
+        }
+    }
+
+    private void OnGroundedChanged(bool isGrounded)
+    {
+        _canJump = isGrounded;
+    }
 }

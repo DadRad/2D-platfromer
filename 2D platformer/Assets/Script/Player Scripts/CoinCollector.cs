@@ -5,11 +5,10 @@ public class CoinCollector : MonoBehaviour
     [SerializeField] private LayerMask _coinLayer;
 
     private int _coinsToWin = 5;
+    private int _coinsCollected;
 
     public event System.Action OnAllCoinsCollected;
     public event System.Action<GameObject> OnCoinCollected;
-
-    private int _coinsCollected;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
