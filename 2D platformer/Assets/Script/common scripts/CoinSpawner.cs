@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] private CoinCollector _coinCollector;
+    [SerializeField] private Collector _coinCollector;
     [SerializeField] private Coin _coinPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _repeatRate;

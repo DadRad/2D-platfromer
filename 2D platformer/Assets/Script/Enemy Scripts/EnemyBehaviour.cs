@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private EnemyMovement _enemyMovement;
+    [SerializeField] private EnemyChase _enemyChase;
     [SerializeField] private Flipper _flipper;
 
     private Vector2 _previousPosition;
@@ -14,13 +15,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        _enemyMovement?.Tick();
+        if (_enemyChase != null)
+        {
+            _enemyChase.Tick();
+        }
+
+        if (_enemyChase == null || !_enemyChase.IsChasing)
+        {
+            _enemyMovement?.Tick();
+        }
+
         UpdateFlip();
     }
 
     private void UpdateFlip()
     {
-        if (_flipper == null || _enemyMovement == null) return;
+        if (_flipper == null) return;
 
         Vector2 currentPosition = transform.position;
         float moveX = currentPosition.x - _previousPosition.x;
@@ -31,5 +41,11 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         _previousPosition = currentPosition;
+    }
+
+    private void OnValidate()
+    {
+        if (_enemyMovement == null) Debug.LogWarning("EnemyMovement не назначен", this);
+        if (_flipper == null) Debug.LogWarning("Flipper не назначен", this);
     }
 }

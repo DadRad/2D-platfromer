@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VictoryNotification : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _victoryText;
-    [SerializeField] private CoinCollector _coinCollector;
+    [SerializeField] private Collector _coinCollector;
 
     private void OnEnable()
     {
