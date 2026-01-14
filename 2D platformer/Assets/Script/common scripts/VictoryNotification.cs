@@ -11,12 +11,12 @@ public class VictoryNotification : MonoBehaviour
     private void OnEnable()
     {
 
-        _coinCollector.OnAllCoinsCollected += ShowVictory;
+        _coinCollector.AllCoinsCollected += ShowVictory;
     }
 
     private void OnDisable()
     {
-        _coinCollector.OnAllCoinsCollected -= ShowVictory;
+        _coinCollector.AllCoinsCollected -= ShowVictory;
     }
     
     private void ShowVictory()

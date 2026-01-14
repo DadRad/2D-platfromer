@@ -1406,7 +1406,8 @@ GameObject:
   - component: {fileID: 887823577}
   - component: {fileID: 887823578}
   - component: {fileID: 887823579}
-  m_Layer: 0
+  - component: {fileID: 887823580}
+  m_Layer: 3
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1602,7 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoinCollector
   _coinLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   _medkitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1730,6 +1731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b5c497c4dde5647aa1beb14b13cfbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _health: {fileID: 887823580}
 --- !u!114 &887823579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,9 +1746,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   _attackDistance: 1.5
   _damage: 25
-  _enemyLayer:
+  _targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  _attackCooldown: 0.5
+  _canAttack: 1
+  _inputReader: {fileID: 887823575}
+--- !u!114 &887823580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887823563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952920a6f91d4124596a00621f208515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _maxHealth: 100
 --- !u!1 &895327807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,13 +2256,13 @@ GameObject:
   - component: {fileID: 1247543872}
   - component: {fileID: 1247543871}
   - component: {fileID: 1247543875}
-  - component: {fileID: 1247543877}
   - component: {fileID: 1247543879}
-  - component: {fileID: 1247543880}
   - component: {fileID: 1247543881}
-  - component: {fileID: 1247543882}
   - component: {fileID: 1247543883}
-  - component: {fileID: 1247543884}
+  - component: {fileID: 1247543885}
+  - component: {fileID: 1247543888}
+  - component: {fileID: 1247543887}
+  - component: {fileID: 1247543886}
   m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -2352,23 +2370,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1247543877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247543870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ee987cb90721d44be6ae0970f7e49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  _waypoints:
-  - {fileID: 1840386699}
-  - {fileID: 711563619}
-  _speed: 3
-  _waypointThreshold: 0.1
 --- !u!61 &1247543879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2415,21 +2416,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5954995, y: 1.066536}
   m_EdgeRadius: 0
---- !u!114 &1247543880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247543870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  _enemyMovement: {fileID: 1247543877}
-  _enemyChase: {fileID: 1247543882}
-  _flipper: {fileID: 1247543881}
 --- !u!114 &1247543881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,23 +2428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flipper
---- !u!114 &1247543882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247543870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 128673f54bf405c47b7b6782b51eefee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  _detectionRadius: 4
-  _chaseSpeed: 3
-  _player: {fileID: 887823566}
-  _enemyMovement: {fileID: 1247543877}
-  _flipper: {fileID: 1247543881}
 --- !u!114 &1247543883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,11 +2440,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dae9ef3ec0b9fd4885370e60ae9decf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  _player: {fileID: 887823578}
+  _attackDistance: 3
   _damage: 10
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
   _attackCooldown: 1
   _canAttack: 1
---- !u!114 &1247543884
+  _detectionRadius: 3
+--- !u!114 &1247543885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2484,9 +2457,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 1247543870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4bf20210b3a144cbf3ff3ca3a67a7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 952920a6f91d4124596a00621f208515, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _maxHealth: 50
+--- !u!114 &1247543886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2a2c878070d594e816a1325e34bce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolBehaviour
+  _waypoints:
+  - {fileID: 1840386699}
+  - {fileID: 711563619}
+  _speed: 2
+  _waypointThreshold: 0.1
+--- !u!114 &1247543887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  _player: {fileID: 887823566}
+--- !u!114 &1247543888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3879ae470418e67438c7ce244f854ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChaseBehaviour
+  _detectionRadius: 3
+  _chaseSpeed: 3
 --- !u!1 &1267017881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,8 +2866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7deed7552ec59c0408af196ab17fa22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Medkit
-  _player: {fileID: 887823578}
-  _collector: {fileID: 887823571}
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _health: {fileID: 887823580}
 --- !u!61 &1449495689
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3169,13 +3189,13 @@ GameObject:
   - component: {fileID: 1612375759}
   - component: {fileID: 1612375764}
   - component: {fileID: 1612375763}
-  - component: {fileID: 1612375762}
   - component: {fileID: 1612375760}
-  - component: {fileID: 1612375765}
   - component: {fileID: 1612375766}
   - component: {fileID: 1612375768}
-  - component: {fileID: 1612375767}
-  - component: {fileID: 1612375769}
+  - component: {fileID: 1612375770}
+  - component: {fileID: 1612375773}
+  - component: {fileID: 1612375772}
+  - component: {fileID: 1612375771}
   m_Layer: 8
   m_Name: Enemy 3
   m_TagString: Untagged
@@ -3192,7 +3212,7 @@ Transform:
   m_GameObject: {fileID: 1612375758}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 47.48, y: 1.59, z: 0}
+  m_LocalPosition: {x: 47.48, y: 1.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3244,23 +3264,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5954995, y: 1.066536}
   m_EdgeRadius: 0
---- !u!114 &1612375762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612375758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ee987cb90721d44be6ae0970f7e49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  _waypoints:
-  - {fileID: 56417428}
-  - {fileID: 568032081}
-  _speed: 3
-  _waypointThreshold: 0.2
 --- !u!50 &1612375763
 Rigidbody2D:
   serializedVersion: 5
@@ -3346,21 +3349,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1612375765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612375758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  _enemyMovement: {fileID: 1612375762}
-  _enemyChase: {fileID: 1612375767}
-  _flipper: {fileID: 1612375766}
 --- !u!114 &1612375766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3373,23 +3361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flipper
---- !u!114 &1612375767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612375758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 128673f54bf405c47b7b6782b51eefee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  _detectionRadius: 4
-  _chaseSpeed: 3
-  _player: {fileID: 887823566}
-  _enemyMovement: {fileID: 1612375762}
-  _flipper: {fileID: 1612375766}
 --- !u!114 &1612375768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3402,11 +3373,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dae9ef3ec0b9fd4885370e60ae9decf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  _player: {fileID: 887823578}
+  _attackDistance: 1.5
   _damage: 10
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
   _attackCooldown: 1
   _canAttack: 1
---- !u!114 &1612375769
+  _detectionRadius: 1
+--- !u!114 &1612375770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3415,9 +3390,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 1612375758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4bf20210b3a144cbf3ff3ca3a67a7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 952920a6f91d4124596a00621f208515, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _maxHealth: 50
+--- !u!114 &1612375771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  _player: {fileID: 887823566}
+--- !u!114 &1612375772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2a2c878070d594e816a1325e34bce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolBehaviour
+  _waypoints:
+  - {fileID: 56417428}
+  - {fileID: 568032081}
+  _speed: 2
+  _waypointThreshold: 0.1
+--- !u!114 &1612375773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3879ae470418e67438c7ce244f854ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChaseBehaviour
+  _detectionRadius: 3
+  _chaseSpeed: 3
 --- !u!1 &1646836197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,7 +3467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bbed71675c54f4ea0240f2bcb16486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSpawner
-  _coinCollector: {fileID: 887823571}
   _coinPrefab: {fileID: 5896598348068254963, guid: 58cf9bb10897c9d4ea43693159877b45, type: 3}
   _spawnPoints:
   - {fileID: 684665275}
@@ -3484,13 +3503,13 @@ GameObject:
   - component: {fileID: 1732939287}
   - component: {fileID: 1732939292}
   - component: {fileID: 1732939291}
-  - component: {fileID: 1732939290}
   - component: {fileID: 1732939288}
-  - component: {fileID: 1732939293}
   - component: {fileID: 1732939294}
   - component: {fileID: 1732939296}
-  - component: {fileID: 1732939295}
-  - component: {fileID: 1732939297}
+  - component: {fileID: 1732939298}
+  - component: {fileID: 1732939301}
+  - component: {fileID: 1732939300}
+  - component: {fileID: 1732939299}
   m_Layer: 8
   m_Name: Enemy 2
   m_TagString: Untagged
@@ -3559,23 +3578,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5954995, y: 1.066536}
   m_EdgeRadius: 0
---- !u!114 &1732939290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732939286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ee987cb90721d44be6ae0970f7e49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  _waypoints:
-  - {fileID: 1839216255}
-  - {fileID: 1401548618}
-  _speed: 3
-  _waypointThreshold: 0.1
 --- !u!50 &1732939291
 Rigidbody2D:
   serializedVersion: 5
@@ -3661,21 +3663,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1732939293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732939286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3947d786e9d87754e9a3032699035a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  _enemyMovement: {fileID: 1732939290}
-  _enemyChase: {fileID: 1732939295}
-  _flipper: {fileID: 1732939294}
 --- !u!114 &1732939294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3688,23 +3675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f6668f76eaf264eaa834cf4c3bd3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flipper
---- !u!114 &1732939295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732939286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 128673f54bf405c47b7b6782b51eefee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  _detectionRadius: 4
-  _chaseSpeed: 3
-  _player: {fileID: 887823566}
-  _enemyMovement: {fileID: 1732939290}
-  _flipper: {fileID: 1732939294}
 --- !u!114 &1732939296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3717,11 +3687,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dae9ef3ec0b9fd4885370e60ae9decf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  _player: {fileID: 887823578}
+  _attackDistance: 1.5
   _damage: 10
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
   _attackCooldown: 1
   _canAttack: 1
---- !u!114 &1732939297
+  _detectionRadius: 1
+--- !u!114 &1732939298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3730,9 +3704,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732939286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4bf20210b3a144cbf3ff3ca3a67a7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 952920a6f91d4124596a00621f208515, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  _maxHealth: 50
+--- !u!114 &1732939299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  _player: {fileID: 887823566}
+--- !u!114 &1732939300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2a2c878070d594e816a1325e34bce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolBehaviour
+  _waypoints:
+  - {fileID: 1839216255}
+  - {fileID: 1401548618}
+  _speed: 2
+  _waypointThreshold: 0.1
+--- !u!114 &1732939301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3879ae470418e67438c7ce244f854ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChaseBehaviour
+  _detectionRadius: 3
+  _chaseSpeed: 3
 --- !u!1 &1745285029
 GameObject:
   m_ObjectHideFlags: 0

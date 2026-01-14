@@ -1,28 +1,28 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Medkit : MonoBehaviour
 {
-    [SerializeField] Player _player;
-    [SerializeField] Collector _collector;
-
-    private int _restotingHealth = 25;
-
-    private void OnEnable()
-    {
-        _collector.MedkitCollected += RestoreHealth;
-    }
-
-    private void OnDisable()
-    {
-        _collector.MedkitCollected -= RestoreHealth;
-    }
-
-    public void RestoreHealth()
-    {
-        int newHealth = _player.Health + _restotingHealth;
-        int clampedHealth = Mathf.Min(newHealth, _player.MaxHealth);
+    [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private Health _health;
     
-        _player.RestoreHealth(clampedHealth - _player.Health);
+    private int _restoringHealth = 25;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        gameObject.SetActive(false);
+
+        if (1 << collision.gameObject.layer == _playerLayer)
+        {
+            RestoreHealth();
+        }
+    }
+
+    private void RestoreHealth()
+    {
+        if (_health != null)
+        {
+            _health.RestoreHealth(_restoringHealth);
+            Debug.Log($"❤️ Аптечка восстановила {_restoringHealth} здоровья");
+        }
     }
 }

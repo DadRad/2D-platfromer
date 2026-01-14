@@ -1,34 +1,21 @@
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : Attacker
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private int _damage = 10;
-    [SerializeField] private float _attackCooldown = 1f;
-    [SerializeField] private bool _canAttack = true;
+    [SerializeField] private float _detectionRadius = 1f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!_canAttack) return;
-
-        if (collision.CompareTag("Player") && _player != null)
+        float distance = Vector2.Distance(transform.position, collision.transform.position);
+        
+        if (distance <= _detectionRadius)
         {
-            _player.TakeDamage(_damage);
-            Debug.Log($"💔 Игрок получил {_damage} урона от врага!");
-            StartCoroutine(AttackCooldown());
+            PerformAttack();
         }
     }
 
-    private System.Collections.IEnumerator AttackCooldown()
+    protected override void OnAttackHit(Collider2D target)
     {
-        _canAttack = false;
-        yield return new WaitForSeconds(_attackCooldown);
-        _canAttack = true;
-    }
-
-    private void OnValidate()
-    {
-        if (_player == null)
-            Debug.LogWarning("Player не назначен в EnemyAttack!", this);
+        Debug.Log($"Враг атаковал {target.name}!");
     }
 }

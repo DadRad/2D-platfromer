@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Collector : MonoBehaviour
 {
@@ -8,26 +7,20 @@ public class Collector : MonoBehaviour
     private int _coinsToWin = 5;
     private int _coinsCollected;
 
-    public event System.Action OnAllCoinsCollected;
-    public event System.Action<GameObject> OnCoinCollected;
-    public event System.Action MedkitCollected;
+    public event System.Action AllCoinsCollected;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & _coinLayer) != 0)
         {
-            OnCoinCollected?.Invoke(collision.gameObject);
             _coinsCollected++;
+
+            Debug.Log("Монет собрано " + _coinsCollected);
 
             if (_coinsCollected >= _coinsToWin)
             {
-                OnAllCoinsCollected?.Invoke();
+                AllCoinsCollected?.Invoke();
             }
-        }
-        else if (((1 << collision.gameObject.layer) & _medkitLayer) != 0)
-        {
-            MedkitCollected?.Invoke();
-            Destroy(collision.gameObject);
         }
     }
 }

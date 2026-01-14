@@ -10,15 +10,6 @@ public class Jumper : MonoBehaviour
 
     public bool CanJump => _canJump;
 
-    public void Jump()
-    {
-        if (_canJump)
-        {
-            _rigidbody.linearVelocity = new Vector2(_rigidbody.linearVelocity.x, _jumpForce);
-            _canJump = false;
-        }
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -46,6 +37,15 @@ public class Jumper : MonoBehaviour
         if (_groundHandler != null)
         {
             _groundHandler.OnGroundedChanged -= OnGroundedChanged;
+        }
+    }
+
+    public void Jump()
+    {
+        if (_canJump)
+        {
+            _rigidbody.linearVelocity = new Vector2(_rigidbody.linearVelocity.x, _jumpForce);
+            _canJump = false;
         }
     }
 

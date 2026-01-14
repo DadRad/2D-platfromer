@@ -4,7 +4,6 @@ using UnityEngine.Pool;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] private Collector _coinCollector;
     [SerializeField] private Coin _coinPrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _repeatRate;
@@ -27,6 +26,11 @@ public class CoinSpawner : MonoBehaviour
         );
     }
 
+    private void Start()
+    {
+        StartCoroutine(SpawnCoins());
+    }
+
     private Coin CreateCoin()
     {
         Coin coinInstance = Instantiate(_coinPrefab);
@@ -41,32 +45,19 @@ public class CoinSpawner : MonoBehaviour
             coin.transform.position = _spawnPoints[_arrayIndex].position;
         }
 
+        coin.CoinCollected += ReleaseHandler;
         coin.gameObject.SetActive(true);
     }
 
     private void ActionOnRelease(Coin coin)
-    {
+    {   
+        coin.CoinCollected -= ReleaseHandler;
         coin.gameObject.SetActive(false);
     }
 
     private void ActionOnDestroy(Coin coin)
     {
         Destroy(coin.gameObject);
-    }
-
-    private void Start()
-    {
-        StartCoroutine(SpawnCoins());
-    }
-
-    private void OnEnable()
-    {
-        _coinCollector.OnCoinCollected += ReleaseHandler;
-    }
-
-    private void OnDisable()
-    {
-        _coinCollector.OnCoinCollected -= ReleaseHandler;
     }
 
     private IEnumerator SpawnCoins()
@@ -81,7 +72,7 @@ public class CoinSpawner : MonoBehaviour
         }
     }
 
-    private void ReleaseHandler(GameObject coinObject)
+    private void ReleaseHandler(Coin coinObject)
     {
         if (coinObject.TryGetComponent<Coin>(out Coin coin))
         {

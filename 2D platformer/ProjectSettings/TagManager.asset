@@ -10,13 +10,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Coin
+  - Player
   - Water
   - UI
   - Ground
   - Medkit
   - Enemy
-  - 
+  - Coin
   - 
   - 
   - 

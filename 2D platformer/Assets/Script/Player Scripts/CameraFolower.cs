@@ -14,25 +14,9 @@ public class CameraFollow : MonoBehaviour
     private Vector3 _targetPosition;
     private bool _isInitialized = false;
 
-    public void SetTarget(Transform newTarget)
-    {
-        _target = newTarget;
-
-        if (newTarget != null)
-        {
-            Initialize();
-        }
-    }
-
-    public void SetBoundsEnabled(bool enabled)
-    {
-        _useBounds = enabled;
-    }
-    
     private void Awake()
     {
         _camera = GetComponent<Camera>();
-
     }
 
     private void Start()
@@ -55,6 +39,21 @@ public class CameraFollow : MonoBehaviour
             transform.position = _target.position + _offset;
             _isInitialized = true;
         }
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        _target = newTarget;
+
+        if (newTarget != null)
+        {
+            Initialize();
+        }
+    }
+
+    public void SetBoundsEnabled(bool enabled)
+    {
+        _useBounds = enabled;
     }
 
     private void UpdateTargetPosition()
