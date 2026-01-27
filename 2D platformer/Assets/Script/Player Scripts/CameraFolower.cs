@@ -32,15 +32,6 @@ public class CameraFollow : MonoBehaviour
         ApplyPosition();
     }
 
-    private void Initialize()
-    {
-        if (_target != null)
-        {
-            transform.position = _target.position + _offset;
-            _isInitialized = true;
-        }
-    }
-
     public void SetTarget(Transform newTarget)
     {
         _target = newTarget;
@@ -74,5 +65,14 @@ public class CameraFollow : MonoBehaviour
             _targetPosition,
             _smoothSpeed * Time.deltaTime
         );
+    }
+
+    private void Initialize()
+    {
+        if (_target != null)
+        {
+            transform.position = _target.position + _offset;
+            _isInitialized = true;
+        }
     }
 }

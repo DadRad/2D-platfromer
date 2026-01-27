@@ -6,7 +6,7 @@ public class EnemyAttack : Attacker
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float distance = Vector2.Distance(transform.position, collision.transform.position);
+        float distance = Vector2.SqrMagnitude(transform.position - collision.transform.position);
         
         if (distance <= _detectionRadius)
         {

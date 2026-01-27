@@ -1,14 +1,14 @@
 using UnityEngine;
 using System;
 
-public class Health : MonoBehaviour, IDamageable
+public class Health : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth = 100;
-    private int _currentHealth;
+    [SerializeField] private int _maxHP = 100;
+    private int _currentHP;
 
-    public int MaxHealth => _maxHealth;
-    public int CurrentHealth => _currentHealth;
-    public bool IsAlive => _currentHealth > 0;
+    public int MaxHealth => _maxHP;
+    public int CurrentHealth => _currentHP;
+    public bool IsAlive => _currentHP > 0;
 
     public event Action Died;
     public event Action<int> Damaged;
@@ -16,17 +16,17 @@ public class Health : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        _currentHP = _maxHP;
     }
 
     public void TakeDamage(int damage)
     {
         if (damage <= 0 || !IsAlive) return;
 
-        _currentHealth = Mathf.Max(0, _currentHealth - damage);
+        _currentHP = Mathf.Max(0, _currentHP - damage);
         Damaged?.Invoke(damage);
 
-        if (_currentHealth == 0)
+        if (_currentHP == 0)
         {
             Die();
         }
@@ -36,8 +36,8 @@ public class Health : MonoBehaviour, IDamageable
     {
         if (amount <= 0 || !IsAlive) return;
 
-        int healed = Mathf.Min(amount, _maxHealth - _currentHealth);
-        _currentHealth += healed;
+        int healed = Mathf.Min(amount, _maxHP - _currentHP);
+        _currentHP += healed;
         Healed?.Invoke(healed);
     }
 
@@ -46,5 +46,14 @@ public class Health : MonoBehaviour, IDamageable
         Died?.Invoke();
         Debug.Log($"{name} погиб!");
         gameObject.SetActive(false);
+    }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        _maxHP = maxHealth;
+        if (_currentHP > _maxHP)
+        {
+            _currentHP = _maxHP;
+        }
     }
 }

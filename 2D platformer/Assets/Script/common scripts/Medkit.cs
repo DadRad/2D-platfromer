@@ -2,23 +2,17 @@ using UnityEngine;
 
 public class Medkit : MonoBehaviour
 {
-    [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private Health _health;
     
     private int _restoringHealth = 25;
+    private bool _isCollected = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public bool IsCollected => _isCollected;
+
+    public void RestoreHealth()
     {
-        gameObject.SetActive(false);
+        _isCollected = true;
 
-        if (1 << collision.gameObject.layer == _playerLayer)
-        {
-            RestoreHealth();
-        }
-    }
-
-    private void RestoreHealth()
-    {
         if (_health != null)
         {
             _health.RestoreHealth(_restoringHealth);

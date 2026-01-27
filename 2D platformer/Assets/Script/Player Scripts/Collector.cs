@@ -1,9 +1,8 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    [SerializeField] private LayerMask _coinLayer;
-    [SerializeField] private LayerMask _medkitLayer;
     private int _coinsToWin = 5;
     private int _coinsCollected;
 
@@ -11,16 +10,26 @@ public class Collector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & _coinLayer) != 0)
+        if (collision.TryGetComponent<Coin>(out Coin coin))
         {
-            _coinsCollected++;
+            if(coin.IsCollected) return;
 
-            Debug.Log("Монет собрано " + _coinsCollected);
+            coin.Collect();
+            _coinsCollected++;
+            Debug.Log($"Монет подобрано: {_coinsCollected}");
 
             if (_coinsCollected >= _coinsToWin)
             {
                 AllCoinsCollected?.Invoke();
             }
+        }
+
+        if (collision.TryGetComponent<Medkit>(out Medkit medkit))
+        {
+            if (medkit.IsCollected) return;
+
+            medkit.RestoreHealth();
+            medkit.gameObject.SetActive(false);
         }
     }
 }

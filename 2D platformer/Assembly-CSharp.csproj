@@ -54,6 +54,7 @@
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideIfAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\DisableInPlayModeAttribute.cs" />
     <Compile Include="Assets\Script\common scripts\Coin.cs" />
+    <Compile Include="Assets\Script\common scripts\IState.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideLabelAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\RequiredAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\GroupAttribute.cs" />
@@ -72,8 +73,10 @@
     <Compile Include="Assets\Script\Player Scripts\Collector.cs" />
     <Compile Include="Assets\Script\common scripts\PatrolBehaviour.cs" />
     <Compile Include="Assets\Script\common scripts\ChaseBehaviour.cs" />
+    <Compile Include="Assets\Script\common scripts\PatrolState.cs" />
     <Compile Include="Assets\Script\Player Scripts\InputReader.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Platformer - Village Props\Script\MovingPlatform.cs" />
+    <Compile Include="Assets\Script\Enemy Scripts\Enemy.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\TitleHeaderAttribute.cs" />
     <Compile Include="Assets\Cainos\Common\Script\Utils\SecondOrderDynamics.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\EnableIfAttribute.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HorizontalGroupAttribute.cs" />
     <Compile Include="Assets\Script\common scripts\CoinSpawner.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\DisableIfAttribute.cs" />
+    <Compile Include="Assets\Script\common scripts\ChaseState.cs" />
     <Compile Include="Assets\Script\common scripts\IDamageable.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideMonoScript.cs" />
     <Compile Include="Assets\Script\Enemy Scripts\EnemyAttack.cs" />

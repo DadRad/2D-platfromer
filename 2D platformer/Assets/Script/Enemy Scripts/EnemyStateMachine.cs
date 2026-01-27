@@ -4,59 +4,40 @@ public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private Transform _player;
 
+    private IState _currentState;
     private Flipper _flipper;
-    private ChaseBehaviour _chase;
-    private PatrolBehaviour _patrol;
     private Vector2 _previousPosition;
+
+    public Transform GetPlayer() => _player;
 
     private void Awake()
     {
-        _chase = GetComponent<ChaseBehaviour>();
-        _patrol = GetComponent<PatrolBehaviour>();
         _flipper = GetComponent<Flipper>();
-
         _previousPosition = transform.position;
     }
 
     private void Start()
     {
-        _patrol.StartPatrol();
+        SwitchState(new PatrolState(this));
     }
 
     private void Update()
     {
-        if (_player == null) return;
-
-        if (_chase.IsTargetInDetectionRange(_player))
-        {
-            SwitchToChase();
-        }
-        else
-        {
-            SwitchToPatrol();
-        }
-
-        _chase.Tick();
-        _patrol.Tick();
+        _currentState?.Tick();
         UpdateFlip();
     }
 
-    private void SwitchToChase()
+    public void SwitchState(IState newState)
     {
-        if (_chase.IsChasing == false)
-        {
-            _patrol.StopPatrol();
-            _chase.StartChase(_player);
-        }
+        _currentState?.Exit();
+        _currentState = newState;
+        _currentState?.Enter();
     }
 
-    private void SwitchToPatrol()
+    public bool PlayerDetected()
     {
-        if (_patrol.IsPatrolling == false)
-        {
-            _chase.StopChase();
-            _patrol.StartPatrol();
-        }
+        ChaseBehaviour chase = GetComponent<ChaseBehaviour>();
+        return chase != null && _player != null && chase.IsTargetInDetectionRange(_player);
     }
 
     private void UpdateFlip()

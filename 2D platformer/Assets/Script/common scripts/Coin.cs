@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {   
-    [SerializeField] private LayerMask _playerLayer;
+    private bool _isCollected = false;
 
-    private bool isCollected = false;
+    public bool IsCollected => _isCollected;
 
     public event System.Action<Coin> CoinCollected;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Collect()
     {
-        if (1 << collision.gameObject.layer == _playerLayer)
-        {
-            isCollected = true;
-            gameObject.SetActive(false);
-            CoinCollected?.Invoke(this);
-        }
+        _isCollected = true;
+        CoinCollected?.Invoke(this);
     }
 }
