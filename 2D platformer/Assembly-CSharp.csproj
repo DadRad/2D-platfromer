@@ -58,6 +58,7 @@
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideLabelAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\RequiredAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\GroupAttribute.cs" />
+    <Compile Include="Assets\Script\Enemy Scripts\EnemyFlipper.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Enum.cs" />
     <Compile Include="Assets\Script\Player Scripts\CameraFolower.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\ShowInInspectorAttribute.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Cainos\Pixel Art Platformer - Village Props\Script\BoundingPlatform.cs" />
     <Compile Include="Assets\Script\Player Scripts\Collector.cs" />
     <Compile Include="Assets\Script\common scripts\PatrolBehaviour.cs" />
+    <Compile Include="Assets\Script\Enemy Scripts\EnemyVision.cs" />
     <Compile Include="Assets\Script\common scripts\ChaseBehaviour.cs" />
     <Compile Include="Assets\Script\common scripts\PatrolState.cs" />
     <Compile Include="Assets\Script\Player Scripts\InputReader.cs" />

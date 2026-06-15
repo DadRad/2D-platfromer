@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b5c497c4dde5647aa1beb14b13cfbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  _health: {fileID: 0}
+  _health: {fileID: 887823580}
 --- !u!114 &887823579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,7 +2165,6 @@ MonoBehaviour:
     m_Bits: 256
   _attackCooldown: 0.5
   _canAttack: 1
-  _inputReader: {fileID: 887823575}
 --- !u!114 &887823580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3066,6 +3065,8 @@ GameObject:
   - component: {fileID: 1247543886}
   - component: {fileID: 1247543889}
   - component: {fileID: 1247543890}
+  - component: {fileID: 1247543891}
+  - component: {fileID: 1247543892}
   m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -3250,8 +3251,7 @@ MonoBehaviour:
     m_Bits: 8
   _attackCooldown: 0.5
   _canAttack: 1
-  _detectionRadius: 2
-  _player: {fileID: 887823566}
+  _attackRange: 2
 --- !u!114 &1247543886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3281,7 +3281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
-  _player: {fileID: 887823566}
 --- !u!114 &1247543888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3321,6 +3320,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxValue: 100
+--- !u!114 &1247543891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc27f401d35c4b4a9c2c394138c2a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
+  _detectionRadius: 3
+--- !u!114 &1247543892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247543870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c26020e1975d4046b46cc1f7232b78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFlipper
 --- !u!1 &1267017881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4044,8 +4068,10 @@ GameObject:
   - component: {fileID: 1612375773}
   - component: {fileID: 1612375772}
   - component: {fileID: 1612375771}
+  - component: {fileID: 1612375776}
   - component: {fileID: 1612375774}
   - component: {fileID: 1612375775}
+  - component: {fileID: 1612375777}
   m_Layer: 8
   m_Name: Enemy 3
   m_TagString: Untagged
@@ -4230,8 +4256,7 @@ MonoBehaviour:
     m_Bits: 8
   _attackCooldown: 0.5
   _canAttack: 1
-  _detectionRadius: 2
-  _player: {fileID: 887823566}
+  _attackRange: 1
 --- !u!114 &1612375771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4244,7 +4269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
-  _player: {fileID: 887823566}
 --- !u!114 &1612375772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4301,6 +4325,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxValue: 100
+--- !u!114 &1612375776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc27f401d35c4b4a9c2c394138c2a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
+  _detectionRadius: 3
+--- !u!114 &1612375777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612375758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c26020e1975d4046b46cc1f7232b78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFlipper
 --- !u!1 &1646836197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4372,8 +4421,10 @@ GameObject:
   - component: {fileID: 1732939301}
   - component: {fileID: 1732939300}
   - component: {fileID: 1732939299}
+  - component: {fileID: 1732939304}
   - component: {fileID: 1732939302}
   - component: {fileID: 1732939303}
+  - component: {fileID: 1732939305}
   m_Layer: 8
   m_Name: Enemy 2
   m_TagString: Untagged
@@ -4558,8 +4609,7 @@ MonoBehaviour:
     m_Bits: 8
   _attackCooldown: 0.5
   _canAttack: 1
-  _detectionRadius: 2
-  _player: {fileID: 887823566}
+  _attackRange: 1
 --- !u!114 &1732939299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4572,7 +4622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4b88d9827934e43af55070f52b1991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
-  _player: {fileID: 887823566}
 --- !u!114 &1732939300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4629,6 +4678,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxValue: 100
+--- !u!114 &1732939304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc27f401d35c4b4a9c2c394138c2a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
+  _detectionRadius: 3
+--- !u!114 &1732939305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732939286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c26020e1975d4046b46cc1f7232b78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFlipper
 --- !u!1 &1745285029
 GameObject:
   m_ObjectHideFlags: 0

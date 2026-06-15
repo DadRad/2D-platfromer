@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour, IDamageable
 {
     private Health _health;
@@ -10,9 +11,6 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
-        if (_health != null)
-        {
             _health.TakeDamage(damage);
-        }
     }
 }

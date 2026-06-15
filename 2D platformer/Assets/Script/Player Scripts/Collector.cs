@@ -1,12 +1,10 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    private int _coinsToWin = 5;
     private int _coinsCollected;
 
-    public event System.Action AllCoinsCollected;
+    public event System.Action CoinCollected;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,11 +15,7 @@ public class Collector : MonoBehaviour
             coin.Collect();
             _coinsCollected++;
             Debug.Log($"Монет подобрано: {_coinsCollected}");
-
-            if (_coinsCollected >= _coinsToWin)
-            {
-                AllCoinsCollected?.Invoke();
-            }
+            CoinCollected?.Invoke();
         }
 
         if (collision.TryGetComponent<Medkit>(out Medkit medkit))

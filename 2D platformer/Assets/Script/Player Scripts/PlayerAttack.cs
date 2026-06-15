@@ -2,18 +2,28 @@ using UnityEngine;
 
 public class PlayerAttack : Attacker
 {
-    [SerializeField] private InputReader _inputReader;
+    private Camera _mainCamera;
+
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+    }
 
     private void Update()
     {
-        if (_inputReader.AttackPressed)
+        if (Input.GetMouseButtonDown(0))
         {
             PerformAttack();
         }
     }
 
-    protected override void OnAttackHit(Collider2D target)
+    protected override bool TryGetAttackDirection(out Vector2 direction)
     {
-        Debug.Log($"Игрок атаковал {target.name}!");
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 worldMousePosition = _mainCamera.ScreenToWorldPoint(mousePosition);
+        worldMousePosition.z = 0f;
+
+        direction = ((Vector2)worldMousePosition - (Vector2)transform.position).normalized;
+        return true;
     }
 }

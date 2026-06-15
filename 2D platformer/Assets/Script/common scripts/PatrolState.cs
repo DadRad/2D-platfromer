@@ -4,11 +4,13 @@ public class PatrolState : IState
 {
     private EnemyStateMachine _machine;
     private PatrolBehaviour _patrol;
+    private EnemyVision _vision;
 
     public PatrolState(EnemyStateMachine machine)
     {
         _machine = machine;
         _patrol = _machine.GetComponent<PatrolBehaviour>();
+        _vision = _machine.GetComponent<EnemyVision>();
     }
 
     public void Enter()
@@ -25,7 +27,7 @@ public class PatrolState : IState
     {
         _patrol.Tick();
 
-        if (_machine.PlayerDetected())
+        if (_vision.TryDetectTarget())
         {
             _machine.SwitchState(new ChaseState(_machine));
         }

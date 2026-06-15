@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections;
 
-public class Attacker : MonoBehaviour
+public abstract class Attacker : MonoBehaviour
 {
     [SerializeField] protected float _attackDistance = 1.5f;
     [SerializeField] protected int _damage = 20;
@@ -8,23 +9,14 @@ public class Attacker : MonoBehaviour
     [SerializeField] protected float _attackCooldown = 0.5f;
 
     [SerializeField] protected bool _canAttack = true;
+    
+    protected abstract bool TryGetAttackDirection(out Vector2 direction);
 
-    private Camera _mainCamera;
-
-    protected virtual void Awake()
-    {
-        _mainCamera = Camera.main;
-    }
-
-    public virtual void PerformAttack()
+    public void PerformAttack()
     {
         if (_canAttack == false) return;
 
-        Vector3 mousePosition = Input.mousePosition;
-        Vector3 worldMousePosition = _mainCamera.ScreenToWorldPoint(mousePosition);
-        worldMousePosition.z = 0f;
-
-        Vector2 attackDirection = ((Vector2)worldMousePosition - (Vector2)transform.position).normalized;
+        if (TryGetAttackDirection(out Vector2 attackDirection) == false) return;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, _attackDistance, _targetLayer);
 
@@ -33,7 +25,7 @@ public class Attacker : MonoBehaviour
         if (hit.collider != null)
         {
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            
+
             if (damageable != null)
             {
                 damageable.TakeDamage(_damage);
@@ -47,7 +39,7 @@ public class Attacker : MonoBehaviour
     {
     }
 
-    protected System.Collections.IEnumerator AttackCooldown()
+    protected IEnumerator AttackCooldown()
     {
         _canAttack = false;
         yield return new WaitForSeconds(_attackCooldown);
